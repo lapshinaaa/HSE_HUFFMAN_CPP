@@ -29,6 +29,7 @@ struct comparingNodes
     }
 };
 
+
 void gettingHuffmanCodes (struct minHeapNode *root, std::string encodedLine)
 {
     if (!root) return; // if there's no root of the tree
@@ -41,4 +42,19 @@ void gettingHuffmanCodes (struct minHeapNode *root, std::string encodedLine)
 
     gettingHuffmanCodes(root -> left, encodedLine + "0");
     gettingHuffmanCodes(root->right, encodedLine + "1");
+}
+
+// The function that builds a Huffman Tree and print it
+void huffmanCodes(char characters[], int freq[], int size)
+{
+    // initialize
+    struct minHeapNode *left, *right, *top;
+
+    // Create a min heap and inserts all characters
+    std::priority_queue<minHeapNode*, std::vector<minHeapNode*>,comparingNodes> minHeap;
+
+    for (int i = 0; i < size; ++i)
+    {
+        minHeap.push(new minHeapNode(characters[i], freq[i]));
+    }
 }
