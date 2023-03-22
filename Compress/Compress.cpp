@@ -1,6 +1,5 @@
 #include "Compress.h"
 #define MAX_TREE_HT 256
-#include <bits/stdc++.h>   //  includes every standard library and STL include file
 
 struct minHeapNode  // a struct of a node of the minimum heap
 {
@@ -11,15 +10,14 @@ struct minHeapNode  // a struct of a node of the minimum heap
     minHeapNode *left;
     minHeapNode *right;
 
-    // initializing a node in our minimum heap
-    minHeapNode(char symbol, int occurence)
+    // initializing a particular node in our minimum heap
+    minHeapNode(char character, int frequency)
     {
         right = NULL;
         left = NULL;
-        this->character = symbol;
-        this->frequency = occurence;
+        this->character = character;
+        this->frequency = frequency;
     }
-
 };
 
 struct comparingNodes
@@ -30,3 +28,17 @@ struct comparingNodes
         return (left_node->frequency > right_node->frequency); // comparing frequency of the nodes
     }
 };
+
+void gettingHuffmanCodes (struct minHeapNode *root, std::string encodedLine)
+{
+    if (!root) return; // if there's no root of the tree
+
+    if (root -> character != &) // an ampersand sign represents an internal node (sum of the two ancestors)
+    {
+        // if it's not an internal node (because there's no character assigned to it): print out the binary code:
+        std::cout<<root->character<<": "<<encodedLine<<'\n';
+    }
+
+    gettingHuffmanCodes(root -> left, encodedLine + "0");
+    gettingHuffmanCodes(root->right, encodedLine + "1");
+}
