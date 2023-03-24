@@ -56,7 +56,7 @@ void gettingHuffmanCodes (struct minHeapNode *root, std::string encodedLine)
 {
     if (!root) return; // if there's no root of the tree
 
-    if (root -> character != &) // an ampersand sign represents an internal node (sum of the two ancestors)
+    if (root -> character != '&') // an ampersand sign represents an internal node (sum of the two ancestors)
     {
         // if it's not an internal node (because there's no character assigned to it): print out the binary code:
         std::cout<<root->character<<": "<<encodedLine<<'\n';
@@ -89,7 +89,7 @@ void huffmanCodes(std::vector<char> characters, std::vector<int> freq, int size)
         minHeap.pop();
 
         // creating new tree branch
-        top = new minHeapNode('$', left->frequency + right->frequency);
+        top = new minHeapNode('&', left->frequency + right->frequency);
 
         top->left = left;
         top->right = right;
@@ -97,5 +97,4 @@ void huffmanCodes(std::vector<char> characters, std::vector<int> freq, int size)
         minHeap.push(top);
     }
     gettingHuffmanCodes(minHeap.top(), "");
-
 }
