@@ -27,3 +27,6 @@
 #include <iostream>
 #include <sstream>
 
+void huffmanCodes(std::vector<char> characters, std::vector<int> freq, int size);
+std::unordered_map<char, int> stringToDict(std::string input_str);
+void dictToArray(std::unordered_map<char, int> dict, std::vector<char>& keys, std::vector<int>& values);

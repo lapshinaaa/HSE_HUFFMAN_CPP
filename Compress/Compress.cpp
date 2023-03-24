@@ -29,6 +29,28 @@ struct comparingNodes
     }
 };
 
+// Function to convert a string to a dictionary, with each character's count as value
+std::unordered_map<char, int> stringToDict(std::string input_str)
+{
+    std::unordered_map<char, int> dict;
+    for (char& c : input_str) {
+        dict[c]++;
+    }
+    return dict;
+}
+
+// Function to create two arrays from the dictionary - one with keys (characters) and one with values (counts)
+void dictToArray(std::unordered_map<char, int> dict, std::vector<char>& keys, std::vector<int>& values) {
+    std::vector<std::pair<char, int>> sorted_dict(dict.begin(), dict.end());
+    std::sort(sorted_dict.begin(), sorted_dict.end(), [](const std::pair<char, int>& a, const std::pair<char, int>& b) {
+        return a.second < b.second;
+    });
+
+    for (auto& pair : sorted_dict) {
+        keys.push_back(pair.first);
+        values.push_back(pair.second);
+    }
+}
 
 void gettingHuffmanCodes (struct minHeapNode *root, std::string encodedLine)
 {
@@ -41,11 +63,11 @@ void gettingHuffmanCodes (struct minHeapNode *root, std::string encodedLine)
     }
 
     gettingHuffmanCodes(root -> left, encodedLine + "0");
-    gettingHuffmanCodes(root->right, encodedLine + "1");
+    gettingHuffmanCodes(root -> right, encodedLine + "1");
 }
 
 // The function that builds a Huffman Tree and print it
-void huffmanCodes(char characters[], int freq[], int size)
+void huffmanCodes(std::vector<char> characters, std::vector<int> freq, int size)
 {
     // initialize
     struct minHeapNode *left, *right, *top;
@@ -57,4 +79,23 @@ void huffmanCodes(char characters[], int freq[], int size)
     {
         minHeap.push(new minHeapNode(characters[i], freq[i]));
     }
+
+    while (minHeap.size() != 1)
+    {
+        // get the two least frequent symbols
+        left = minHeap.top();
+        minHeap.pop();
+        right = minHeap.top();
+        minHeap.pop();
+
+        // creating new tree branch
+        top = new minHeapNode('$', left->frequency + right->frequency);
+
+        top->left = left;
+        top->right = right;
+
+        minHeap.push(top);
+    }
+    gettingHuffmanCodes(minHeap.top(), "");
+
 }
