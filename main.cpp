@@ -4,7 +4,7 @@
 int main() {
     std::string input_str = "";
     std::cout << "Print any string you like and I'll create huffman codes for it: " << std::endl;
-    std::cin >> input_str;
+    std::getline(std::cin, input_str);
 
     std::unordered_map<char, int> dict_of_inputStr = stringToDict(input_str);
     std::vector<char> keys;
