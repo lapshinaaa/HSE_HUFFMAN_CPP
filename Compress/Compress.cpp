@@ -52,22 +52,8 @@ void dictToArray(std::unordered_map<char, int> dict, std::vector<char>& keys, st
     }
 }
 
-void gettingHuffmanCodes (struct minHeapNode *root, std::string encodedLine)
-{
-    if (!root) return; // if there's no root of the tree
-
-    if (root -> character != '&') // an ampersand sign represents an internal node (sum of the two ancestors)
-    {
-        // if it's not an internal node (because there's no character assigned to it): print out the binary code:
-        std::cout<<root->character<<": "<<encodedLine<<'\n';
-    }
-
-    gettingHuffmanCodes(root -> left, encodedLine + "0");
-    gettingHuffmanCodes(root -> right, encodedLine + "1");
-}
-
 // The function that builds a Huffman Tree and print it
-void huffmanCodes(std::vector<char> characters, std::vector<int> freq, int size)
+void huffmanCodes(std::vector<char> characters, std::vector<int> freq, int size, std::string input_str)
 {
     // initialize
     struct minHeapNode *left, *right, *top;
@@ -96,5 +82,29 @@ void huffmanCodes(std::vector<char> characters, std::vector<int> freq, int size)
 
         minHeap.push(top);
     }
-    gettingHuffmanCodes(minHeap.top(), "");
+
+    // get the Huffman codes for each character and print them out
+    std::unordered_map<char, std::string> huffmanCodes;
+
+    gettingHuffmanCodes(minHeap.top(), "", huffmanCodes);
+
+    // print the encoded input string using the Huffman codes
+    for (char& c : input_str) {
+        std::cout << huffmanCodes[c];
+    }
+    std::cout << std::endl;
+}
+
+void gettingHuffmanCodes (struct minHeapNode *root, std::string encodedLine, std::unordered_map<char, std::string>& huffmanCodes)
+{
+    if (!root) return; // if there's no root of the tree
+
+    if (root -> character != '&') // an ampersand sign represents an internal node (sum of the two ancestors)
+    {
+        // if it's not an internal node (because there's no character assigned to it): store the binary code in the map
+        huffmanCodes[root->character] = encodedLine;
+    }
+
+    gettingHuffmanCodes(root -> left, encodedLine + "0", huffmanCodes);
+    gettingHuffmanCodes(root -> right, encodedLine + "1", huffmanCodes);
 }

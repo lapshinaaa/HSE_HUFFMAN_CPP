@@ -13,7 +13,10 @@ int main() {
 
     int size = keys.size();
 
-    huffmanCodes(keys, freq, size);
+    // print the encoded input string using the Huffman codes
+    std::cout << "Encoded version of the input: "<<'\n';
+
+    huffmanCodes(keys, freq, size, input_str);
     return 0;
 
 }
