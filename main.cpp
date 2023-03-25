@@ -2,8 +2,8 @@
 #include "Compress/Compress.h"
 
 int main() {
-    std::string input_str = "";
-    std::cout << "Print any string you like and I'll create huffman codes for it: " << std::endl;
+    std::string input_str;
+    std::cout << "Enter the string: " << std::endl;
     std::getline(std::cin, input_str);
 
     std::unordered_map<char, int> dict_of_inputStr = stringToDict(input_str);
@@ -17,7 +17,11 @@ int main() {
     std::cout << "Encoded version of the input: "<<'\n';
 
     huffmanCodes(keys, freq, size, input_str);
+
+    // testing the code:
+    testCasesHuffman();
+    std::cout<<"All tests successfully complete!";
+
     return 0;
 
 }
-// add functions, which work with input string, and huffmanCodes work with vectors
