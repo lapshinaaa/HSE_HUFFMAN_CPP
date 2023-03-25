@@ -61,7 +61,7 @@ void huffmanCodes(std::vector<char> characters, std::vector<int> freq, int size,
         return;
     }
 
-    if (size == 1)
+    else if (size == 1) // represents the number of unique characters
     {
         std::cout<<"0"<<std::endl;
         return;
