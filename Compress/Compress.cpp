@@ -53,18 +53,18 @@ void dictToArray(std::unordered_map<char, int> dict, std::vector<char>& keys, st
 }
 
 // The function that builds a Huffman Tree and print it
-void huffmanCodes(std::vector<char> characters, std::vector<int> freq, int size, std::string input_str)
+std::string huffmanCodes(std::vector<char> characters, std::vector<int> freq, int size, std::string input_str)
 {
     if (input_str.empty())
     {
         std::cout <<""<< std::endl;
-        return;
+        return "";
     }
 
     if (size == 1)
     {
         std::cout<<"0"<<std::endl;
-        return;
+        return "";
     }
 
     // initialize
@@ -100,11 +100,14 @@ void huffmanCodes(std::vector<char> characters, std::vector<int> freq, int size,
 
     gettingHuffmanCodes(minHeap.top(), "", huffmanCodes);
 
+    std::string output = "";
     // print the encoded input string using the Huffman codes
     for (char& c : input_str) {
         std::cout << huffmanCodes[c];
+        output += huffmanCodes[c];
     }
     std::cout << std::endl;
+    return output;
 }
 
 void gettingHuffmanCodes (struct minHeapNode *root, std::string encodedLine, std::unordered_map<char, std::string>& huffmanCodes)
